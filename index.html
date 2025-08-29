@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCash Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            height: 100vh;
+            overflow: hidden;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-bar {
+            background: #0070ba;
+            color: white;
+            padding: 10px 15px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .time {
+            font-weight: 500;
+        }
+        
+        .status-icons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .greeting-section {
+            padding: 20px 20px 15px;
+            background: #0070ba;
+            color: white;
+        }
+        
+        .greeting {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .promo-badge {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .wallet-section {
+            background: white;
+            padding: 20px 20px 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .wallet-options {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .wallet-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .wallet-icon {
+            width: 45px;
+            height: 45px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .save-icon {
+            background: #e6f7ff;
+            color: #0070ba;
+        }
+        
+        .borrow-icon {
+            background: #e6f7ff;
+            color: #0070ba;
+        }
+        
+        .grow-icon {
+            background: #e6f7ff;
+            color: #0070ba;
+        }
+        
+        .wallet-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .balance-section {
+            background: white;
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .balance-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .balance-amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+            letter-spacing: 0.5px;
+        }
+        
+        .cash-in-btn {
+            background: #0070ba;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            box-shadow: 0 2px 5px rgba(0, 112, 186, 0.3);
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 25px 20px;
+            background: white;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .action-icon {
+            width: 55px;
+            height: 55px;
+            background: #f7f7f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 22px;
+            color: #0070ba;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .action-label {
+            font-size: 13px;
+            text-align: center;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .explore-section {
+            padding: 25px 20px;
+            background: white;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .view-all {
+            font-size: 14px;
+            color: #0070ba;
+            font-weight: 500;
+        }
+        
+        .services {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .service {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+        }
+        
+        .service-icon {
+            width: 45px;
+            height: 45px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #0070ba;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-label {
+            font-size: 12px;
+            text-align: center;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .ad-section {
+            padding: 20px;
+            background: white;
+            border-bottom: 1px solid #eaeaea;
+            text-align: center;
+        }
+        
+        .ad-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .ad-title {
+            font-weight: 600;
+            color: #0070ba;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+        
+        .experience-section {
+            padding: 20px;
+            background: white;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .experience-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+        
+        .experience-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background: #f8f8f8;
+            border-top: 1px solid #eaeaea;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #999;
+        }
+        
+        .nav-item.active {
+            color: #0070ba;
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .nav-label {
+            font-size: 12px;
+        }
+        
+        .content {
+            overflow-y: auto;
+            height: calc(100vh - 70px);
+            padding-bottom: 70px;
+        }
+        
+        /* Specific icon adjustments to match the image */
+        .fa-piggy-bank {
+            transform: scale(0.9);
+        }
+        
+        .fa-hand-holding-usd {
+            transform: scale(0.9);
+        }
+        
+        .fa-chart-line {
+            transform: scale(0.9);
+        }
+        
+        .fa-mobile-alt {
+            transform: scale(0.9);
+        }
+        
+        .fa-exchange-alt {
+            transform: scale(0.9);
+        }
+        
+        .fa-file-invoice {
+            transform: scale(0.9);
+        }
+        
+        .fa-chart-pie {
+            transform: scale(0.9);
+        }
+        
+        .fa-credit-card {
+            transform: scale(0.9);
+        }
+        
+        .fa-wifi {
+            transform: scale(0.9) rotate(45deg);
+        }
+        
+        .fa-bus {
+            transform: scale(0.9);
+        }
+        
+        .fa-shield-alt {
+            transform: scale(0.9);
+        }
+        
+        .fa-star {
+            transform: scale(0.9);
+        }
+        
+        .fa-utensils {
+            transform: scale(0.9);
+        }
+        
+        .fa-plane {
+            transform: scale(0.9);
+        }
+        
+        .fa-tree {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="status-bar">
+            <div class="time" id="currentTime">2:51</div>
+            <div class="status-icons">
+                <i class="fas fa-signal"></i>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-three-quarters"></i>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="greeting-section">
+                <div class="greeting">Hello, <span id="userName">User</span>!</div>
+                <div class="promo-badge">Top for Promos</div>
+            </div>
+            
+            <div class="wallet-section">
+                <div class="section-title">Wallet</div>
+                <div class="wallet-options">
+                    <div class="wallet-option">
+                        <div class="wallet-icon save-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
+                        <div class="wallet-label">Save</div>
+                    </div>
+                    <div class="wallet-option">
+                        <div class="wallet-icon borrow-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <div class="wallet-label">Borrow</div>
+                    </div>
+                    <div class="wallet-option">
+                        <div class="wallet-icon grow-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="wallet-label">Grow</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="balance-section">
+                <div class="balance-label">AVAILABLE BALANCE</div>
+                <div class="balance-amount">₱1,500,000.00</div>
+                <button class="cash-in-btn">+ Cash In</button>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="action-label">Send</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="action-label">Load</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="action-label">Transfer</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="action-label">Bills</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="action-label">Ginvest</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <div class="action-label">Cards</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <div class="action-label">Tap to Pay</div>
+                </div>
+                <div class="action-btn">
+                    <div class="action-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <div class="action-label">Commute</div>
+                </div>
+            </div>
+            
+            <div class="explore-section">
+                <div class="section-header">
+                    <div class="section-title">Explore the App</div>
+                    <div class="view-all">View All</div>
+                </div>
+                
+                <div class="services">
+                    <div class="service">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="service-label">Ginsure</div>
+                    </div>
+                    <div class="service">
+                        <div class="service-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="service-label">A+ Rewards</div>
+                    </div>
+                    <div class="service">
+                        <div class="service-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="service-label">Food Hub</div>
+                    </div>
+                    <div class="service">
+                        <div class="service-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <div class="service-label">Travel</div>
+                    </div>
+                    <div class="service">
+                        <div class="service-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <div class="service-label">GForest</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ad-section">
+                <div class="ad-text">© GCash</div>
+                <div class="ad-title">Invest for as low as P50 today</div>
+            </div>
+            
+            <div class="experience-section">
+                <div class="experience-title">Experience more with GCash</div>
+                <div class="experience-subtitle">You do know more</div>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-item active">
+                <div class="nav-icon"><i class="fas fa-home"></i></div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-inbox"></i></div>
+                <div class="nav-label">Inbox</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-qrcode"></i></div>
+                <div class="nav-label">QR</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-receipt"></i></div>
+                <div class="nav-label">Transactions</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-icon"><i class="fas fa-user"></i></div>
+                <div class="nav-label">Profile</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        
+        // Get username from URL parameters or use default
+        function getUsername() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('name') || 'User';
+        }
+        
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+            
+            document.getElementById('userName').textContent = getUsername();
+        });
+    </script>
+</body>
+</html>
