@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCash - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0070ba 0%, #004d7a 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-header {
+            background: #0070ba;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .gcash-logo {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .login-tagline {
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+        
+        .login-form {
+            padding: 30px 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-input:focus {
+            border-color: #0070ba;
+            box-shadow: 0 0 0 2px rgba(0, 112, 186, 0.2);
+        }
+        
+        .login-btn {
+            background: #0070ba;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 112, 186, 0.3);
+        }
+        
+        .login-btn:hover {
+            background: #005a93;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        
+        .app-download {
+            text-align: center;
+            margin-top: 30px;
+            color: white;
+        }
+        
+        .app-download p {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .app-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+                padding-top: 40px;
+            }
+            
+            .login-container {
+                border-radius: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="gcash-logo">GCash</div>
+            <div class="login-tagline">The Better Way to Pay</div>
+        </div>
+        
+        <div class="login-form">
+            <div class="form-group">
+                <label class="form-label">Enter Your Name</label>
+                <input type="text" class="form-input" id="nameInput" placeholder="Your name" autocomplete="off">
+            </div>
+            
+            <button class="login-btn" id="loginBtn">Login to GCash</button>
+        </div>
+        
+        <div class="login-footer">
+            <p>By continuing, you agree to our Terms of Service</p>
+        </div>
+    </div>
+    
+    <div class="app-download">
+        <p>Get the app</p>
+        <div class="app-badges">
+            <div class="badge">App Store</div>
+            <div class="badge">Google Play</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const nameInput = document.getElementById('nameInput');
+            
+            loginBtn.addEventListener('click', function() {
+                const name = nameInput.value.trim();
+                
+                if (name) {
+                    // In a real app, this would redirect to the dashboard
+                    // For this example, we'll just show an alert
+                    alert(`Welcome to GCash, ${name}! You are now being redirected to the dashboard.`);
+                    
+                    // In a real implementation, you would use:
+                    // window.location.href = 'dashboard.html?name=' + encodeURIComponent(name);
+                } else {
+                    alert('Please enter your name to continue');
+                }
+            });
+            
+            // Allow pressing Enter to submit
+            nameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
